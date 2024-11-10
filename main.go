@@ -1,17 +1,20 @@
 package main
 
 import (
-	"fmt"
-	"os"
-
-	tea "github.com/charmbracelet/bubbletea"
+	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/widget"
 )
 
 func main() {
-	p := tea.NewProgram(initialModel())
-
-	if _, err := p.Run(); err != nil {
-		fmt.Printf("There's been an error: %s", err)
-		os.Exit(1)
-	}
+	a := app.New()
+	w := a.NewWindow("Hello")
+	hello := widget.NewLabel("Hello fyne")
+	w.SetContent(container.NewVBox(
+		hello,
+		widget.NewButton("Hi", func() {
+			hello.SetText("Test")
+		}),
+	))
+	w.ShowAndRun()
 }
